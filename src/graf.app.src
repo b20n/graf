@@ -1,0 +1,10 @@
+{application, graf, [
+    {description, "Simple statistics collection"},
+    {vsn, git},
+    {registered, [graf_stats_collector, graf_process_tracker]},
+    {applications, [kernel, stdlib, folsom]},
+    {mod, {graf_app, []}},
+    {env, [
+        {collection_interval, 10}
+    ]}
+]}.
