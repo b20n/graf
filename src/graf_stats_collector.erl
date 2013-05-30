@@ -30,9 +30,13 @@ start_link() ->
     gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).
 
 init([]) ->
-    DescFiles = application:get_env(graf, descriptions, []),
-    Descriptions = lists:fold(
+    DescFiles = case application:get_env(graf, descriptions) of
+        undefined -> [];
+        Value -> Value
+    end,
+    Descriptions = lists:foldl(
         fun(File, Acc) -> {ok, D} = file:consult(File), D ++ Acc end,
+        [],
         DescFiles
     ),
     lists:map(

@@ -3,6 +3,7 @@
 -export([
     start/0,
     stop/0,
+    fetch/0,
     sample/1,
     new/2,
     increment_counter/1,
@@ -23,6 +24,9 @@ start() ->
 stop() ->
     application:stop(graf),
     application:stop(folsom).
+
+fetch() ->
+    graf_stats_collector:fetch().
 
 -spec sample(any()) -> stat().
 sample(Name) ->
