@@ -37,7 +37,7 @@ init([]) ->
 handle_call(Msg, _From, State) ->
     {stop, {unknown_call, Msg}, error, State}.
 
-handle_cast({track, Name, Pid}, #st{tracked=Tracked}=State) ->
+handle_cast({track, Pid, Name}, #st{tracked=Tracked}=State) ->
     graf:increment_counter(Name),
     Ref = erlang:monitor(process, Pid),
     {noreply, State#st{tracked=dict:store(Ref, Name, Tracked)}};
