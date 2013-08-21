@@ -6,6 +6,8 @@
     fetch/0,
     sample/1,
     new/2,
+    delete/1,
+    list/0,
     increment_counter/1,
     increment_counter/2,
     decrement_counter/1,
@@ -52,6 +54,12 @@ new(gauge, Name) ->
     end;
 new(_, _) ->
     {error, unsupported_type}.
+
+delete(Name) ->
+    folsom_metrics:delete_metric(Name).
+
+list() ->
+    folsom_metrics:get_metrics_info().
 
 -spec increment_counter(any()) -> response().
 increment_counter(Name) ->
